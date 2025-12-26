@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lidor Ladany - Portfolio</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* --- CSS: Design & Styles --- */
+        :root {
+            --primary-color: #2E8B57; /* SeaGreen */
+            --primary-dark: #1e5c39;
+            --accent-color: #3CB371; /* MediumSeaGreen */
+            --teal-accent: #00897b; /* New Turquoise Accent */
+            --text-dark: #333;
+            --text-gray: #555;
+            --text-light: #fff;
+            --font-main: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            --section-spacing: 70px;
+        }
+
+        body {
+            font-family: var(--font-main);
+            margin: 0;
+            padding: 0;
+            color: var(--text-dark);
+            line-height: 1.6;
+            padding-top: 40px;
+            
+            /* NEW: Modern Deep Green to Turquoise Gradient Background */
+            background: linear-gradient(135deg, 
+                #002820 0%,   /* Very Dark Deep Green */
+                #004d40 30%,  /* Dark Teal */
+                #009688 70%,  /* Turquoise/Teal */
+                #b2dfdb 100%  /* Light Mint */
+            );
+            background-attachment: fixed; /* Parallax effect */
+            min-height: 100vh;
+        }
+
+        /* Top Bar Fixed */
+        .top-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 40px;
+            background-color: rgba(0, 50, 40, 0.95); /* Semi-transparent dark green */
+            color: white;
+            display: flex;
+            align-items: center;
+            padding: 0 20px;
+            box-sizing: border-box;
+            z-index: 1000;
+            font-size: 0.95rem;
+            font-family: var(--font-main);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            backdrop-filter: blur(5px);
+        }
+        
+        .contact-info-top {
+            display: flex;
+            align-items: center;
+            width: 100%;
+        }
+
+        .contact-info-top a {
+            color: white;
+            text-decoration: none;
+            margin-right: 25px;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            transition: opacity 0.3s;
+        }
+        .contact-info-top a:hover { opacity: 0.8; }
+
+        .lang-btn {
+            background-color: white;
+            color: var(--primary-dark);
+            border: none;
+            padding: 4px 12px;
+            border-radius: 15px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 0.8rem;
+            margin-left: auto;
+            font-family: inherit;
+        }
+        .lang-btn:hover { background-color: #e0f2f1; }
+
+        /* Header / Hero */
+        header {
+            background: transparent;
+            color: var(--text-light);
+            padding: 120px 20px 160px; 
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .header-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            max-width: 1200px;
+            width: 100%;
+        }
+
+        .header-text { flex: 1; text-align: left; text-shadow: 0 4px 8px rgba(0,0,0,0.3); }
+        
+        .header-text h1 { 
+            font-size: 4.5rem; 
+            margin: 0; 
+            line-height: 1.1; 
+            font-weight: 700; 
+        }
+        
+        /* Main Name Separator */
+        .separator {
+            height: 6px;
+            width: 100%; /* Spans full width of the text container relative to flex */
+            max-width: 450px; 
+            background-color: white;
+            margin: 25px 0;
+            border-radius: 3px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .header-text p.title { font-size: 2rem; font-weight: 300; margin: 0; opacity: 0.95; }
+
+        /* GIANT Profile Pic */
+        .profile-pic-container {
+            flex: 0 0 550px; 
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 0 30px;
+        }
+
+        .profile-pic {
+            width: 500px; 
+            height: 500px;
+            border-radius: 50%;
+            background-color: #ddd;
+            border: 12px solid rgba(255,255,255,0.2);
+            object-fit: cover;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5); 
+            max-width: 100%; 
+        }
+
+        .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
+
+        /* About Section */
+        .about-content {
+            background: white; 
+            padding: 40px; 
+            border-radius: 15px; 
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2); 
+            font-size: 1.1rem;
+            margin-bottom: var(--section-spacing);
+            margin-top: -100px; 
+            position: relative;
+            z-index: 10;
+        }
+
+        /* Skills Cards */
+        .skills-row {
+            display: flex;
+            gap: 20px;
+            margin-bottom: var(--section-spacing);
+        }
+
+        .skill-card {
+            flex: 1;
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            text-align: center;
+            transition: transform 0.3s;
+            border-top: 5px solid var(--teal-accent); /* Changed to Teal */
+        }
+        .skill-card:hover { transform: translateY(-5px); }
+        .skill-card h3 { color: var(--primary-dark); margin-top: 0; margin-bottom: 15px; font-size: 1.3rem; }
+        
+        .skill-card h4 {
+            color: var(--teal-accent);
+            margin: 15px 0 10px 0;
+            font-size: 1rem;
+            text-decoration: underline;
+            text-decoration-color: var(--accent-color);
+        }
+
+        .skill-card ul { list-style: none; padding: 0; margin: 0; text-align: left; }
+        .skill-card li { margin-bottom: 8px; padding-left: 20px; position: relative; font-size: 0.95rem; }
+        .skill-card li::before { content: "•"; color: var(--accent-color); font-weight: bold; position: absolute; left: 0; }
+
+        section { margin-bottom: var(--section-spacing); }
+
+        /* TITLES & SEPARATORS - UPDATED */
+        h2 {
+            color: var(--primary-dark);
+            font-size: 2rem;
+            margin-bottom: 30px;
+            position: relative;
+            display: inline-block;
+            background: white; 
+            padding: 10px 25px; /* More padding */
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        
+        /* The separator line */
+        h2::after {
+            content: ''; 
+            display: block; 
+            width: 100%; /* Full width of the box */
+            height: 5px; /* Thicker line */
+            background: linear-gradient(to right, var(--primary-dark), var(--teal-accent)); /* Gradient line */
+            margin-top: 8px;
+            border-radius: 2px;
+        }
+
+        .specialization-text { font-weight: bold; color: var(--teal-accent); font-size: 1.2rem; margin-bottom: 15px; display: block; }
+
+        /* Buttons */
+        .btn-group { margin-top: 25px; display: flex; gap: 15px; flex-wrap: wrap;}
+        
+        .btn-download {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background-color: var(--primary-dark);
+            color: white;
+            text-decoration: none;
+            padding: 12px 30px;
+            border-radius: 30px;
+            font-weight: bold;
+            box-shadow: 0 4px 15px rgba(46, 139, 87, 0.4);
+            transition: all 0.3s;
+            font-family: inherit;
+        }
+        .btn-download:hover { background-color: var(--teal-accent); transform: translateY(-2px); }
+        
+        .btn-linkedin {
+            background-color: #0077b5;
+            box-shadow: 0 4px 15px rgba(0, 119, 181, 0.4);
+        }
+        .btn-linkedin:hover { background-color: #005582; }
+
+        /* Timeline Items */
+        .timeline-item {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            border-left: 6px solid var(--teal-accent); /* Changed to Teal */
+        }
+
+        .timeline-header {
+            display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; margin-bottom: 15px; border-bottom: 1px solid #eee; padding-bottom: 10px;
+        }
+        .timeline-header h3 { margin: 0; color: var(--text-dark); font-size: 1.5rem; }
+        .timeline-header .date { color: var(--text-gray); font-weight: bold; background: #eee; padding: 4px 10px; border-radius: 4px; font-size: 0.9rem; }
+        .timeline-header .subtitle { width: 100%; color: var(--teal-accent); font-weight: 700; margin-top: 5px; }
+
+        .integrated-skills { margin-top: 15px; }
+        .integrated-skills strong { color: var(--primary-dark); font-weight: 700; }
+        .integrated-skills ul { margin: 0; padding-left: 20px; color: var(--text-dark); }
+        .integrated-skills li { margin-bottom: 5px; }
+
+        .courses-text { margin-top: 10px; font-style: italic; color: #555; }
+
+        /* Gallery */
+        .gallery {
+            display: flex;
+            gap: 20px;
+            margin-top: 0;
+            margin-bottom: 50px;
+            overflow-x: auto;
+            padding-bottom: 20px;
+        }
+        
+        .gallery-img {
+            height: 280px;
+            width: auto;
+            min-width: 200px;
+            background-color: white;
+            border-radius: 12px;
+            object-fit: cover;
+            border: 4px solid white;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+        .gallery-img:hover { transform: scale(1.03) rotate(1deg); }
+
+        /* RTL Logic */
+        body.rtl { direction: rtl; }
+        body.rtl .lang-btn { margin-left: 0; margin-right: auto; }
+        body.rtl .contact-info-top a { margin-right: 0; margin-left: 25px; }
+        body.rtl .header-text { text-align: right; }
+        body.rtl .skill-card ul { text-align: right; }
+        body.rtl .skill-card li { padding-left: 0; padding-right: 20px; }
+        body.rtl .skill-card li::before { left: auto; right: 0; }
+        body.rtl .timeline-item { border-left: none; border-right: 6px solid var(--teal-accent); }
+        body.rtl .integrated-skills ul { padding-left: 0; padding-right: 20px; }
+        .hidden { display: none !important; }
+
+        /* Responsive */
+        @media (max-width: 992px) {
+             .header-content { flex-direction: column-reverse; text-align: center; padding-top: 20px;}
+             .header-text { text-align: center !important; }
+             .header-text h1 { font-size: 3.5rem; }
+             .separator { margin: 20px auto; }
+             .profile-pic-container { margin-bottom: 40px; flex: 0 0 auto; }
+             .profile-pic { width: 400px; height: 400px; }
+        }
+
+        @media (max-width: 768px) {
+            .skills-row { flex-direction: column; }
+            .top-bar { flex-direction: column; height: auto; padding: 10px; gap: 5px;}
+            .contact-info-top { flex-direction: column; gap: 5px; }
+            .contact-info-top a { margin: 0; }
+            body { padding-top: 110px; } 
+            .lang-btn { margin: 5px auto; }
+            .about-content { margin-top: -30px; }
+            
+            .profile-pic { width: 320px; height: 320px; border-width: 8px;}
+            .header-text h1 { font-size: 2.8rem; }
+            .header-text p.title { font-size: 1.4rem; }
+            
+            .gallery-img { height: 200px; }
+        }
+    </style>
+</head>
+<body class="ltr">
+
+    <div class="top-bar">
+        <div class="lang-en contact-info-top">
+            <a href="mailto:Lidorladany@gmail.com">📧 Lidorladany@gmail.com</a>
+            <a href="https://www.linkedin.com/in/lidor-ladany" target="_blank">🔗 linkedin.com/in/lidor-ladany</a>
+            <a href="tel:0528868341">📞 052-8868341</a>
+            <button class="lang-btn" onclick="toggleLanguage()">עברית / English</button>
+        </div>
+        <div class="lang-he hidden contact-info-top">
+            <a href="mailto:Lidorladany@gmail.com">📧 Lidorladany@gmail.com</a>
+            <a href="https://www.linkedin.com/in/lidor-ladany" target="_blank">🔗 linkedin.com/in/lidor-ladany</a>
+            <a href="tel:0528868341">📞 052-8868341</a>
+            <button class="lang-btn" onclick="toggleLanguage()">עברית / English</button>
+        </div>
+    </div>
+
+    <header>
+        <div class="header-content">
+            <div class="header-text lang-en">
+                <h1>Lidor Ladany</h1>
+                <div class="separator"></div> <p class="title">M.Sc. Student in Electrical & Electronic Engineering</p>
+            </div>
+            
+            <div class="header-text lang-he hidden">
+                <h1>לידור לדאני</h1>
+                <div class="separator"></div> <p class="title">סטודנט לתואר שני בהנדסת חשמל ואלקטרוניקה (מסלול ישיר)</p>
+            </div>
+
+            <div class="profile-pic-container">
+                <img src="profile.jpg" alt="Lidor Ladany" class="profile-pic" onerror="this.src='https://via.placeholder.com/500?text=No+Image'">
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        
+        <section id="about">
+            <div class="about-content">
+                <div class="lang-en">
+                    <h2>About Me</h2>
+                    <p>I am a fourth-year B.Sc. student in Electrical and Electronic Engineering at Ariel University, currently enrolled in a direct-track M.Sc. program. I specialize in Electro-Optics and Quantum Science, driven by genuine passion and curiosity for physics and technological innovation.</p>
+                    <p>Beyond technical knowledge, I am a highly motivated individual with a positive approach to every challenge. I acquired the foundations of leadership and technical ability during my service in the Air Force as a technical team leader, where I learned how to make critical decisions under pressure and solve complex malfunctions in real-time.</p>
+                    <p>I believe that good engineering starts with curiosity, continues with deep understanding, and is tested by the ability to make things work.</p>
+                    
+                    <div class="btn-group">
+                        <a href="cv.pdf" class="btn-download" target="_blank">📄 Download CV</a>
+                        <a href="https://www.linkedin.com/in/lidor-ladany" target="_blank" class="btn-download btn-linkedin">🔗 LinkedIn Profile</a>
+                    </div>
+                </div>
+                <div class="lang-he hidden">
+                    <h2>אודותיי</h2>
+                    <p>אני סטודנט שנה ד' בהנדסת חשמל ואלקטרוניקה במסלול ישיר לתואר שני באוניברסיטת אריאל, אני מתמחה בעולמות האלקטרו-אופטיקה והמדעים הקוונטיים מתוך תשוקה וסקרנות אמיתית לפיזיקה ולחדשנות טכנולוגית.</p>
+                    <p>מעבר לידע הטכני, אני אדם בעל מוטיבציה גבוהה וגישה חיובית לכל אתגר. את יסודות המנהיגות והיכולת הטכנית רכשתי במהלך שירותי בחיל האוויר כראש צוות טכני, שם למדתי כיצד לקבל החלטות קריטיות תחת לחץ ולפתור תקלות מורכבות בזמן אמת.</p>
+                    <p>אני מאמין שהנדסה טובה מתחילה בסקרנות, ממשיכה בהבנה מעמיקה, ונבחנת ביכולת לגרום לדברים לעבוד.</p>
+                    
+                    <div class="btn-group">
+                        <a href="cv.pdf" class="btn-download" target="_blank">📄 הורד קורות חיים</a>
+                        <a href="https://www.linkedin.com/in/lidor-ladany" target="_blank" class="btn-download btn-linkedin">🔗 פרופיל לינקדאין</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="skills-row">
+            <div class="skill-card">
+                <div class="lang-en">
+                    <h3><i class="fas fa-users"></i> Work Skills</h3>
+                    <ul>
+                        <li>Creative Thinker</li>
+                        <li>Fast Learner</li>
+                        <li>Team Player & Leader</li>
+                        <li>Time Management</li>
+                        <li>High Attention to Detail</li>
+                        <li>Interpersonal Relations</li>
+                    </ul>
+                </div>
+                <div class="lang-he hidden">
+                    <h3><i class="fas fa-users"></i> מיומנויות עבודה</h3>
+                    <ul>
+                        <li>חשיבה יצירתית ומחוץ לקופסה</li>
+                        <li>יכולת למידה עצמית מהירה</li>
+                        <li>עבודת צוות וניהול צוות</li>
+                        <li>ניהול זמן ותיעדוף משימות</li>
+                        <li>תשומת לב לפרטים הקטנים</li>
+                        <li>יחסי אנוש מעולים</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="skill-card">
+                <div class="lang-en">
+                    <h3><i class="fas fa-code"></i> Technical Skills</h3>
+                    <h4>Software & Tools</h4>
+                    <ul>
+                        <li>Python, C++</li>
+                        <li>Matlab, Multisim</li>
+                    </ul>
+                    <h4>Hardware & Lab</h4>
+                    <ul>
+                        <li>Electro-Optics Setup & Lenses</li>
+                        <li>Oscilloscopes & Function Generators</li>
+                        <li>Circuit Building</li>
+                        <li>System Integration</li>
+                    </ul>
+                </div>
+                <div class="lang-he hidden">
+                    <h3><i class="fas fa-code"></i> כישורים טכניים</h3>
+                    <h4>תוכנה וכלים</h4>
+                    <ul>
+                        <li>Python, C++</li>
+                        <li>Matlab, Multisim</li>
+                    </ul>
+                    <h4>חומרה ומעבדה</h4>
+                    <ul>
+                        <li>בניית מערכים אלקטרו-אופטיים ועדשות</li>
+                        <li>ציוד מעבדה (סקופים, מחוללים)</li>
+                        <li>בניית מעגלים חשמליים</li>
+                        <li>אינטגרציית מערכות</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="skill-card">
+                <div class="lang-en">
+                    <h3><i class="fas fa-globe"></i> Languages</h3>
+                    <ul>
+                        <li><strong>Hebrew:</strong> Native</li>
+                        <li><strong>English:</strong> High proficiency</li>
+                    </ul>
+                </div>
+                <div class="lang-he hidden">
+                    <h3><i class="fas fa-globe"></i> שפות</h3>
+                    <ul>
+                        <li><strong>עברית:</strong> שפת אם</li>
+                        <li><strong>אנגלית:</strong> ברמה גבוהה </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <section id="education">
+            <div class="lang-en">
+                <h2>Education & Research</h2>
+                
+                <div class="timeline-item">
+                    <div class="timeline-header">
+                        <h3>M.Sc. in Electrical & Electronic Engineering (Direct Track)</h3>
+                        <span class="date">2025 - Present</span>
+                        <span class="subtitle">Ariel University</span>
+                    </div>
+                    <p><strong>Research Subject:</strong> Development of a compact millimeter-wave (MMW) imaging system based on Up-conversion using GDD detectors and Lock-in detection.</p>
+                    <p>The work includes quasi-optical system design and characterization of THz/MMW sources, emphasizing precision improvement and system tuning for optimal imaging performance.</p>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-header">
+                        <h3>B.Sc. in Electrical & Electronic Engineering</h3>
+                        <span class="date">2022 - Present</span>
+                        <span class="subtitle">Ariel University | Current GPA: 93.95</span>
+                    </div>
+                    <p><strong>Specialization:</strong> Electro-Optics and Quantum Science.</p>
+                    <p><strong>Achievements:</strong> Dean's List (2024).</p>
+                    <p ><strong>Relevant Courses:</strong> Applied Optics (100), Random Signals (100), Quantum Computing (98), Fourier Optics (93), Nonlinear Optics (88).</p>
+                </div>
+
+                <div class="gallery">
+                    <img src="research1.jpg" class="gallery-img" alt="Research 1" onerror="this.style.display='none'">
+                    <img src="research2.jpg" class="gallery-img" alt="Research 2" onerror="this.style.display='none'">
+                    <img src="research3.jpg" class="gallery-img" alt="Research 3" onerror="this.style.display='none'">
+                </div>
+            </div>
+
+            <div class="lang-he hidden">
+                <h2>השכלה ומחקר</h2>
+                
+                <div class="timeline-item">
+                    <div class="timeline-header">
+                        <h3>תואר שני בהנדסת חשמל ואלקטרוניקה (מסלול ישיר)</h3>
+                        <span class="date">2025 - היום</span>
+                        <span class="subtitle">אוניברסיטת אריאל</span>
+                    </div>
+                    <p><strong>נושא המחקר:</strong> פיתוח מערכת דימות קומפקטית בתחום הגלים המילימטריים (MMW) המבוססת על שיטת Up-conversion באמצעות גלאי GDD וגילוי lock-in.</p>
+                    <p>העבודה כוללת תכנון מערכת קוואזי-אופטית ואפיון מקורות ה-THz/MMW, תוך דגש על שיפור הדיוק וכיוונון המערכת לביצועי דימות אופטימליים.</p>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-header">
+                        <h3>תואר ראשון בהנדסת חשמל ואלקטרוניקה</h3>
+                        <span class="date">2022 - היום</span>
+                        <span class="subtitle">אוניברסיטת אריאל | ממוצע עדכני: 93.95</span>
+                    </div>
+                    <p><strong>התמחות:</strong> אלקטרו-אופטיקה ומדעים קוונטיים.</p>
+                    <p><strong>הישגים:</strong> מצטיין דיקן (2024).</p>
+                    <p ><strong>קורסים בולטים:</strong> אופטיקה יישומית (100), אותות אקראיים (100), מחשוב קוונטי (98), אופטיקת פורייה (93), אופטיקה לא ליניארית (88).</p>
+                </div>
+
+                <div class="gallery">
+                    <img src="research1.jpg" class="gallery-img" alt="מחקר 1" onerror="this.style.display='none'">
+                    <img src="research2.jpg" class="gallery-img" alt="מחקר 2" onerror="this.style.display='none'">
+                    <img src="research3.jpg" class="gallery-img" alt="מחקר 3" onerror="this.style.display='none'">
+                </div>
+            </div>
+        </section>
+
+        <section id="military">
+            <div class="lang-en">
+                <h2>Military Service</h2>
+
+                <div class="timeline-item">
+                    <div class="timeline-header">
+                        <h3>Helicopter Technician & Team Leader</h3>
+                        <span class="date">2019 - 2021</span>
+                        <span class="subtitle">Israeli Air Force | 124 Squadron</span>
+                    </div>
+                    <p>Management and leadership of a technical team in an intense operational environment. The role required a combination of high technical capabilities (diagnostics and complex troubleshooting) and command capabilities (task management, direct responsibility for human life and flight safety).</p>
+                    <p>🏆 <strong>Achievement:</strong> Palmahim Base Excellence Award (2020).</p>
+                    
+                    <div class="integrated-skills">
+                        <strong>Key Skills:</strong>
+                        <ul>
+                            <li><strong>Real-time problem solving</strong> - Diagnosing and repairing critical faults under time pressure and extreme conditions.</li>
+                            <li><strong>Leadership</strong> - Commanding a team, managing shifts, and mentoring new soldiers until certification.</li>
+                            <li><strong>Operational Responsibility</strong> - Adhering to strict safety and quality assurance (QA) standards in aviation systems.</li>
+                            <li><strong>Teamwork</strong> - Ability to synchronize and function highly as part of a broad and dynamic array.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-header">
+                        <h3>Iron Swords War - Active Reserve Service</h3>
+                        <span class="date">2023 - 2025</span>
+                        <span class="subtitle">124 Squadron | Helicopter Technician & Team Lead</span>
+                    </div>
+                    <p><strong>~250 days of reserve duty (Order 8) -</strong> Performed duties as a technician and technical team lead during wartime. The work included managing and executing operational flight waves under high pressure, while maintaining aircraft serviceability and availability around the clock.</p>
+                </div>
+
+                <div class="gallery">
+                    <img src="army1.jpg" class="gallery-img" alt="Military 1" onerror="this.style.display='none'">
+                    <img src="army2.jpg" class="gallery-img" alt="Military 2" onerror="this.style.display='none'">
+                    <img src="army3.jpg" class="gallery-img" alt="Military 3" onerror="this.style.display='none'">
+                </div>
+            </div>
+
+            <div class="lang-he hidden">
+                <h2>שירות צבאי</h2>
+
+                <div class="timeline-item">
+                    <div class="timeline-header">
+                        <h3>טכנאי מסוקים וראש צוות (דרג א')</h3>
+                        <span class="date">2019 - 2021</span>
+                        <span class="subtitle">חיל האוויר | טייסת 124</span>
+                    </div>
+                    <p>ניהול והובלת צוות טכנאים בסביבה מבצעית אינטנסיבית. התפקיד דרש שילוב בין יכולות טכניות גבוהות (דיאגנוסטיקה ופתרון תקלות במערכות מכניות מורכבות) לבין יכולות פיקודיות (ניהול משימות, אחריות ישירה על חיי אדם ובטיחות טיסה).</p>
+                    <p>🏆 <strong>הישגים:</strong> מצטיין בסיס פלמחים (2020).</p>
+
+                    <div class="integrated-skills">
+                        <strong>מיומנויות מרכזיות:</strong>
+                        <ul>
+                            <li><strong>פתרון בעיות בזמן אמת</strong> - אבחון ותיקון תקלות קריטיות תחת לחץ זמן ומצבי קיצון.</li>
+                            <li><strong>מנהיגות והובלה</strong> - פיקוד על צוות, ניהול משמרות וחניכת חיילים חדשים עד להסמכה.</li>
+                            <li><strong>אחריות מבצעית</strong> - הקפדה על סטנדרטים מחמירים של בטיחות ואיכות (QA) במערכות תעופה.</li>
+                            <li><strong>עבודת צוות</strong> - יכולת סנכרון ותפקוד גבוה כחלק ממערך רחב ודינמי.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-header">
+                        <h3>מלחמת חרבות ברזל - שירות מילואים</h3>
+                        <span class="date">2023 - 2025</span>
+                        <span class="subtitle">טייסת 124 | טכנאי מסוקים וראש צוות</span>
+                    </div>
+                    <p><strong>כ-250 ימי מילואים (צו 8) -</strong> ביצוע תפקידי כטכנאי וכראש צוות טכני בזמן מלחמה. העבודה כללה ניהול והוצאת גלי טיסות מבצעיות תחת עומס גבוה, תוך שמירה על כשירות וזמינות הכלים מסביב לשעון.</p>
+                </div>
+
+                <div class="gallery">
+                    <img src="army1.jpg" class="gallery-img" alt="צבא 1" onerror="this.style.display='none'">
+                    <img src="army2.jpg" class="gallery-img" alt="צבא 2" onerror="this.style.display='none'">
+                    <img src="army3.jpg" class="gallery-img" alt="צבא 3" onerror="this.style.display='none'">
+                </div>
+            </div>
+        </section>
+
+        <section id="work">
+            <div class="lang-en">
+                <h2>Work Experience</h2>
+                <div class="timeline-item">
+                    <div class="timeline-header">
+                        <h3>Mechanical Assembly Worker</h3>
+                        <span class="date">2021 - 2022</span>
+                        <span class="subtitle">Elbit Systems & IAI </span>
+                    </div>
+                    <p>Responsible for assembling advanced defense systems. Collaborated closely with Mechanical and Electrical R&D engineers to troubleshoot and solve integration issues during development stages.</p>
+                    
+                    <div class="integrated-skills">
+                        <strong>Key Skills:</strong>
+                        <ul>
+                            <li>Self-learning of engineering drawings (mechanical/electrical).</li>
+                            <li>Precision assembly of complex systems.</li>
+                            <li>Creative technical problem solving in the field.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="lang-he hidden">
+                <h2>ניסיון תעסוקתי</h2>
+                <div class="timeline-item">
+                    <div class="timeline-header">
+                        <h3>מרכיב מכני</h3>
+                        <span class="date">2021 - 2022</span>
+                        <span class="subtitle">אלביט מערכות ותע"ש </span>
+                    </div>
+                    <p>אחריות על הרכבת מערכות ביטחוניות מתקדמות. עבודה צמודה מול מהנדסי פיתוח (מכונות וחשמל) למציאת פתרונות יצירתיים לבעיות אינטגרציה בשלבי הפיתוח.</p>
+                    
+                    <div class="integrated-skills">
+                        <strong>מיומנויות מרכזיות:</strong>
+                        <ul>
+                            <li>לימוד עצמי של שרטוטים הנדסיים (חשמל ומכונות).</li>
+                            <li>עבודה מדויקת והרכבת מכלולים מורכבים.</li>
+                            <li>פתרון בעיות טכניות בזמן אמת בשטח.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="hobbies">
+            <div class="lang-en">
+                <h2>Hobbies</h2>
+                <div class="timeline-item">
+                    <p style="font-size: 1.1rem; margin-bottom: 10px;">
+                        ⚽ <strong>Watching Football:</strong> Avid fan of Maccabi Haifa & Barcelona.
+                    </p>
+                    <p style="font-size: 1.1rem;">
+                        🍳 <strong>Cooking:</strong> Enjoy experimenting with new recipes.
+                    </p>
+                </div>
+                <div class="gallery">
+                    <img src="hobby1.jpg" class="gallery-img" alt="Hobby 1" onerror="this.style.display='none'">
+                    <img src="hobby2.jpg" class="gallery-img" alt="Hobby 2" onerror="this.style.display='none'">
+                </div>
+            </div>
+            <div class="lang-he hidden">
+                <h2>תחביבים</h2>
+                <div class="timeline-item">
+                    <p style="font-size: 1.1rem; margin-bottom: 10px;">
+                        ⚽ <strong>כדורגל:</strong> אוהד מושבע של מכבי חיפה וברצלונה.
+                    </p>
+                    <p style="font-size: 1.1rem;">
+                        🍳 <strong>בישול:</strong> אוהב להתנסות במתכונים חדשים במטבח.
+                    </p>
+                </div>
+                <div class="gallery">
+                    <img src="hobby1.jpg" class="gallery-img" alt="תחביב 1" onerror="this.style.display='none'">
+                    <img src="hobby2.jpg" class="gallery-img" alt="תחביב 2" onerror="this.style.display='none'">
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <script>
+        function toggleLanguage() {
+            const body = document.body;
+            const enElements = document.querySelectorAll('.lang-en');
+            const heElements = document.querySelectorAll('.lang-he');
+
+            if (body.classList.contains('ltr')) {
+                body.classList.remove('ltr');
+                body.classList.add('rtl');
+            } else {
+                body.classList.remove('rtl');
+                body.classList.add('ltr');
+            }
+
+            enElements.forEach(el => el.classList.toggle('hidden'));
+            heElements.forEach(el => el.classList.toggle('hidden'));
+        }
+    </script>
+</body>
+</html>
